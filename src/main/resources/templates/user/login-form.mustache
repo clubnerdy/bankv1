@@ -1,0 +1,22 @@
+{{>layout/header}}
+<!--margin : mt, mr, mb, ml (1~5) ex) mt-5-->
+<div class="container mt-2">
+    <div class="mt-4 p-5 bg-light text-body rounded">
+        <h1>로그인</h1>
+        <form action="/login" method="post">
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" placeholder="아이디" name="username">
+            </div>
+            <!-- username -->
+
+            <div class="mb-3">
+                <input type="password" class="form-control" placeholder="비밀번호" name="password">
+            </div>
+            <!-- password -->
+
+            <button type="submit" class="btn btn-primary">로그인</button>
+        </form>
+    </div>
+</div>
+<!-- .container end -->
+{{>layout/footer}}

@@ -1,0 +1,32 @@
+{{>layout/header}}
+<!--margin : mt, mr, mb, ml (1~5) ex) mt-5-->
+<div class="container mt-2">
+    <div class="mt-4 p-5 bg-light text-body rounded">
+        <h1>계좌이체</h1>
+        <form action="#" method="post">
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" placeholder="이체금액" name="amount">
+            </div>
+            <!-- amount -->
+
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="출금계좌" name="withdrawNumber">
+            </div>
+            <!-- withdrawNumber -->
+
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="입금계좌" name="depositNumber">
+            </div>
+            <!-- depositNumber -->
+
+            <div class="mb-3 mt-3">
+                <input type="password" class="form-control" placeholder="비밀번호" name="withdrawPassword">
+            </div>
+            <!-- withdrawPassword -->
+
+            <button type="submit" class="btn btn-primary">이체하기</button>
+        </form>
+    </div>
+</div>
+<!-- .container end -->
+{{>layout/footer}}
