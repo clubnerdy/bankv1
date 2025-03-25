@@ -5,12 +5,14 @@ import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class AccountRepository {
     private final EntityManager em;
 
-    public void save(Integer number, String password, Integer balance, int userId) {
+    public void save(Integer number, String password, Integer balance, int userId) { //계좌등록
         Query query = em.createNativeQuery("insert into account_tb(number, password, balance, user_id, created_at) values (?, ?, ?, ?, now())");
         query.setParameter(1, number);
         query.setParameter(2, password);
@@ -18,4 +20,16 @@ public class AccountRepository {
         query.setParameter(4, userId);
         query.executeUpdate();
     }
+
+    public List<Account> findAllByUserId(Integer userId) {
+        Query query = em.createNativeQuery("select * from account_tb where user_id = ? order by created_at desc", Account.class);
+        query.setParameter(1, userId);
+        return query.getResultList();
+    }
+
+//    public List<Account> findAllByUserId(int userId) {
+//        Query query = em.createNativeQuery("select * from account_tb where user_id = ? order by number asc", Account.class);
+//        query.setParameter(1, userId);
+//        return query.getResultList();
+//    }
 }

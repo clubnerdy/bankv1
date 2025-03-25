@@ -1,11 +1,14 @@
 package com.metacoding.bankv1.account;
 
 import com.metacoding.bankv1.user.User;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -37,5 +40,17 @@ public class AccountController {
 
         accountService.계좌생성(saveDTO, sessionUser.getId());
         return "redirect:/";
+    }
+
+    @GetMapping("/account")
+    public String list(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            throw new RuntimeException("로그인 후 사용해주세요");
+        }
+
+        List<Account> accountList = accountService.계좌목록(sessionUser.getId());
+        request.setAttribute("models", accountList);
+        return "account/list";
     }
 }
