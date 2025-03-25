@@ -1,5 +1,6 @@
 package com.metacoding.bankv1.user;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
     private final UserService userService;
+    private final HttpSession session;
+
+    @GetMapping("/logout")
+    public String logout() {
+        session.invalidate();
+        return "redirect:/";
+    }
+
+    // 로그인만 예외로 @Post (조회시에도) 주소창에 비번같은거 노출되면 안되니까 바디로 보내야지
+    @PostMapping("/login")
+    public String login(UserRequest.LoginDTO loginDTO) {
+    User sessionUser = userService.로그인(loginDTO);
+    session.setAttribute("sessionUser", sessionUser); // stateful
+        return "redirect:/";
+    }
 
     @GetMapping("/login-form")
     public String loginForm() {

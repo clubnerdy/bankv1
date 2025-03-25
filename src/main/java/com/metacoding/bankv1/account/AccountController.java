@@ -10,5 +10,4 @@ public class AccountController {
     public String home () {
         return "home";
     }
-
 }
