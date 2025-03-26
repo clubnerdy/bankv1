@@ -18,5 +18,6 @@ public class History {
     private Integer depositNumber; // 2222
     private Integer amount; // 100원
     private Integer withdrawBalance; // 그 시점에 잔액 => 900원
+    private Integer depositBalance; // 그 시점에 잔액 => 900원
     private Timestamp createdAt;
 }
