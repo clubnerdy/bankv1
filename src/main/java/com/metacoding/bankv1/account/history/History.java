@@ -1,4 +1,4 @@
-package com.metacoding.bankv1.history;
+package com.metacoding.bankv1.account.history;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,6 +17,6 @@ public class History {
     private Integer withdrawNumber; // 1111
     private Integer depositNumber; // 2222
     private Integer amount; // 100원
-    private Integer withdraw_balace; // 그 시점에 잔액 => 900원
+    private Integer withdrawBalance; // 그 시점에 잔액 => 900원
     private Timestamp createdAt;
 }

@@ -16,6 +16,41 @@ public class AccountController {
     private final AccountService accountService;
     private final HttpSession session;
 
+    @PostMapping("/account/transfer")
+    public String transfer(AccountRequest.TransferDTO transferDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            throw new RuntimeException("로그인 후 사용해주세요");
+        }
+
+        accountService.계좌이체(transferDTO, sessionUser.getId());
+
+        return "redirect:/"; // TODO
+
+    }
+
+    @GetMapping("/account/transfer-form")
+    public String transferForm() {
+        // 공통 부가 로직
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            throw new RuntimeException("로그인 후 사용해주세요");
+        }
+        return "account/transfer-form";
+    }
+
+    @GetMapping("/account")
+    public String list(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            throw new RuntimeException("로그인 후 사용해주세요");
+        }
+
+        List<Account> accountList = accountService.계좌목록(sessionUser.getId());
+        request.setAttribute("models", accountList);
+        return "account/list";
+    }
+
     @GetMapping("/")
     public String home() {
         return "home";
@@ -39,18 +74,6 @@ public class AccountController {
         }
 
         accountService.계좌생성(saveDTO, sessionUser.getId());
-        return "redirect:/";
-    }
-
-    @GetMapping("/account")
-    public String list(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null) {
-            throw new RuntimeException("로그인 후 사용해주세요");
-        }
-
-        List<Account> accountList = accountService.계좌목록(sessionUser.getId());
-        request.setAttribute("models", accountList);
-        return "account/list";
+        return "redirect:/account";
     }
 }

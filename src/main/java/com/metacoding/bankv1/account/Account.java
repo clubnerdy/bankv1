@@ -18,6 +18,6 @@ public class Account {
     private Integer number; // 계좌번호 PK
     private String password;
     private Integer balance; // 잔액
-    private Integer user_id; // FK
+    private Integer userId; // FK
     private Timestamp createdAt;
 }
